@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /
+RewriteRule ^eud/(.*)$ http://nlp01:5000/eud/$1 [P]
+
