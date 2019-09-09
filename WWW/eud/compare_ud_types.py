@@ -9,16 +9,16 @@ import ud2ude_aryehgigi.conllu_wrapper as cw
 ARBITRARY_PATH = "sentence.txt"
 
 
-@route('/')
-@route('/<filepath:path>')
+@route('/eud/')
+@route('/eud/<filepath:path>')
 def server_static(filepath="index.html"):
     lastpart = filepath[filepath.rfind('/') + 1:]
     if (" " in lastpart) or ("." not in lastpart):
         filepath = filepath.replace(lastpart, "index.html")
-    return static_file(filepath, root='./public/')
+    return static_file(filepath, root='./')
 
 
-@route('/api/1/annotate', method='POST')
+@route('/eud/annotate/', method='POST')
 def annotate():
     if request.json is None or "sentence" not in request.json:
         return {"error": "No sentence provided"}
@@ -50,4 +50,4 @@ def annotate():
 #   2. copy the model to the project and remove the absolute local path
 nlp = spacy.load("en_ud_model")
 spacyconll = Spacy2ConllParser(nlp=nlp)
-run(host='localhost', reloader=True, port=5020)
+run(host='0.0.0.0', reloader=True, port=5000)
