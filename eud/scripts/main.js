@@ -151,7 +151,7 @@ define([
 			var eUdAryeh = document.getElementById("GFG3").checked
 			const $sentenceInput = $("#sentenceInput");
             $sentenceInput[0].value = $sentenceInput[0].value != "" ? $sentenceInput[0].value : "The quick brown fox jumped over the lazy dog."
-			const response = await axios.post('http://nlp.biu.ac.il/~aryeht/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_aryeh: eUdAryeh});
+			const response = await axios.post('/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_aryeh: eUdAryeh});
 			
             $('#containerBasic').empty()
             $('#containerPlus').empty()
