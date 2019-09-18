@@ -27,6 +27,7 @@ def annotate():
     eud = request.json["eud"]
     eud_pp = request.json["eud_pp"]
     eud_aryeh = request.json["eud_aryeh"]
+    conv_iterations = request.json["conv_iterations"]
     
     spacyconll.parseprint(input_str=sentence, output_file=ARBITRARY_PATH, is_tokenized=True)
     with open(ARBITRARY_PATH, "r") as f:
@@ -34,7 +35,7 @@ def annotate():
     os.remove(ARBITRARY_PATH)
     
     conllu_basic_out_formatted, _ = cw.parse_conllu(conllu_basic_out)
-    conllu_plus_out_formatted = convert(cw.parse_conllu(conllu_basic_out)[0], eud, eud_pp, eud_aryeh)
+    conllu_plus_out_formatted, conv_done = convert(cw.parse_conllu(conllu_basic_out)[0], eud, eud_pp, eud_aryeh, int(conv_iterations))
 
     odin_basic_out = cw.conllu_to_odin(conllu_basic_out_formatted, is_basic=True)
     odin_plus_out = cw.conllu_to_odin(conllu_plus_out_formatted)
@@ -42,6 +43,7 @@ def annotate():
     return json.dumps({
         "basic": odin_basic_out,
         "plus": odin_plus_out,
+        "conv_done": conv_done,
     })
 
 

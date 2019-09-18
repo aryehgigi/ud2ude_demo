@@ -96,7 +96,7 @@ define([
 						pair = [min, max]
 						
                         var clash = false
-						e.svg.node.style.fill = "#00FF00"
+						e.svg.node.style.fill = "#60ce3a"
                         if (pair in dict)
 						{
 							clash = true
@@ -149,15 +149,18 @@ define([
 			var eUd = document.getElementById("GFG1").checked
 			var eUdPP = document.getElementById("GFG2").checked
 			var eUdAryeh = document.getElementById("GFG3").checked
+			var iterations = document.getElementById("GFG4").value
 			const $sentenceInput = $("#sentenceInput");
             $sentenceInput[0].value = $sentenceInput[0].value != "" ? $sentenceInput[0].value : "The quick brown fox jumped over the lazy dog."
-			const response = await axios.post('/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_aryeh: eUdAryeh});
+			const response = await axios.post('/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_aryeh: eUdAryeh, conv_iterations:iterations != "" ? iterations : 1});
 			
             $('#containerBasic').empty()
             $('#containerPlus').empty()
             
 			tag1 = displayTree(response.data.basic, "containerBasic", "universal-basic");
 			tag2 = displayTree(response.data.plus, "containerPlus", "universal-aryeh", tag1.links);
+			iters = document.getElementById("iters")
+			iters.value = response.data.conv_done
 		});
         
         var slash_idx = window.location.href.lastIndexOf('/')
