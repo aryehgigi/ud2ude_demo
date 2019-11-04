@@ -157,6 +157,10 @@ define([
 			{
 				document.getElementById("hover").style.visibility = "hidden"
 			}
+			else
+			{
+				document.getElementById("hover").style.visibility = "visible"
+			}
 
 			const $sentenceInput = $("#sentenceInput");
             $sentenceInput[0].value = $sentenceInput[0].value != "" ? $sentenceInput[0].value : "The quick brown fox jumped over the lazy dog."
