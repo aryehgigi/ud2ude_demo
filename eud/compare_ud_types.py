@@ -37,7 +37,7 @@ def annotate():
     # os.remove(ARBITRARY_PATH)
     
     conllu_basic_out_formatted = cw.parse_spacy_doc(nlp(sentence))
-    odin_basic_out = cw.conllu_to_odin(conllu_basic_out_formatted, is_basic=True)
+    odin_basic_out = cw.conllu_to_odin([conllu_basic_out_formatted], is_basic=True)
     
     conllu_plus_out_formatted, conv_done = convert([conllu_basic_out_formatted], eud, eud_pp, eud_aryeh, int(conv_iterations), remove_eud_info, remove_extra_info)
     odin_plus_out = cw.conllu_to_odin(conllu_plus_out_formatted)
