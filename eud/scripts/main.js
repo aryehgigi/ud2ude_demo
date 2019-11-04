@@ -150,11 +150,17 @@ define([
 			var eUdPP = document.getElementById("GFG2").checked
 			var eUdAryeh = document.getElementById("GFG3").checked
 			var iterations = document.getElementById("GFG4").value
-			var removeExtraInfo = document.getElementById("GFG5").checked
-			
+			var removeEudInfo = document.getElementById("GFG5").checked
+			var removeExtraInfo = document.getElementById("GFG6").checked
+
+		    if (removeExtraInfo == true)
+			{
+				document.getElementById("hover").style.visibility = "hidden"
+			}
+
 			const $sentenceInput = $("#sentenceInput");
             $sentenceInput[0].value = $sentenceInput[0].value != "" ? $sentenceInput[0].value : "The quick brown fox jumped over the lazy dog."
-			const response = await axios.post('http://nlp.biu.ac.il/~aryeht/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_aryeh: eUdAryeh, conv_iterations:iterations != "" ? iterations : 1, remove_extra_info: removeExtraInfo});
+			const response = await axios.post('http://nlp.biu.ac.il/~aryeht/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_aryeh: eUdAryeh, conv_iterations:iterations != "" ? iterations : 1, remove_eud_info: removeEudInfo, remove_extra_info: removeExtraInfo});
 			
             $('#containerBasic').empty()
             $('#containerPlus').empty()
