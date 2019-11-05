@@ -171,7 +171,7 @@ define([
             $('#containerPlus').empty()
             
 			tag1 = displayTree(response.data.basic, "containerBasic", "universal-basic");
-			tag2 = displayTree(response.data.plus, "containerPlus", "universal-aryeh", tag1.links);
+			tag2 = displayTree(response.data.plus, "containerPlus", "universal-enhanced", tag1.links);
 			iters = document.getElementById("iters")
 			iters.value = response.data.conv_done
 		});
