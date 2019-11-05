@@ -54,4 +54,4 @@ def annotate():
 #   2. copy the model to the project and remove the absolute local path
 nlp = spacy.load("en_ud_model")
 #spacyconll = Spacy2ConllParser(nlp=nlp)
-zzrun(host='localhost', reloader=True, port=5070)
+run(host='localhost', reloader=True, port=5070)
