@@ -7,7 +7,27 @@ define([
 	TAG,
 	axios,
 ) {
-	
+
+	function get_shifts(words1, words2) {
+		var shifts = {};
+		var pointer1 = 0;
+		var pointer2 = 0;
+		while (pointer1 < words1.length)
+		{
+			shifts[pointer2] = pointer1
+			if (words1[pointer1].text == words2[pointer2].text)
+			{
+				pointer1++;
+			}
+			else
+			{
+				shifts[pointer2] -= 0.9
+			}
+			pointer2++;
+		}
+		return shifts
+	}
+
 	// -------------
 	// Basic example
 	// -------------
@@ -52,23 +72,8 @@ define([
             if (links.length > 0)
             {
 				// find the shift when word amount is changed.
-				var shifts = {};
-				var pointer1 = 0;
-				var pointer2 = 0;
-				while (pointer1 < links[0].main.words.length)
-				{
-					shifts[pointer2] = pointer1
-					if (links[0].main.words[pointer1].text == basicTag.links[0].main.words[pointer2].text)
-					{ 
-						pointer1++;
-					}
-					else
-					{
-						shifts[pointer2] -= 0.9
-					}
-					pointer2++;
-				}
-				
+				var shifts = get_shifts(links[0].main.words, basicTag.links[0].main.words);
+
 				var dict = {};
                 basicTag.links.forEach((e) => {
                     found = false
@@ -78,8 +83,13 @@ define([
                             found = true
                             if (e2.reltype != e.reltype)
                             {
-                                e.svg.node.style.fill = "#FFAA00"
-                                e2.svg.node.style.fill = "#FFAA00"
+                            	if ((e.reltype.startsWith(e2.reltype)) || ((e.reltype == "compound") && ("nmod:npmod"))) {
+									e.svg.node.style.fill = "#FFAA00"
+									e2.svg.node.style.fill = "#FFAA00"
+								}
+                            	else {
+                            		found = false
+								}
                             }
                         }
                     })
