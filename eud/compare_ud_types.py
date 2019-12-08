@@ -3,7 +3,7 @@ from bottle import route, run, request, static_file
 import json
 import spacy
 #from spacy_conll import Spacy2ConllParser
-from ud2ude_aryehgigi.converter import convert
+from ud2ude_aryehgigi.converter import convert, ConvsCanceler
 import ud2ude_aryehgigi.conllu_wrapper as cw
 
 #ARBITRARY_PATH = "sentence.txt"
@@ -39,7 +39,7 @@ def annotate():
     conllu_basic_out_formatted = cw.parse_spacy_doc(nlp(sentence))
     odin_basic_out = cw.conllu_to_odin([conllu_basic_out_formatted], is_basic=True, push_new_to_end=False)
     
-    conllu_plus_out_formatted, conv_done = convert([conllu_basic_out_formatted], eud, eud_pp, eud_aryeh, int(conv_iterations), remove_eud_info, remove_extra_info, False)
+    conllu_plus_out_formatted, conv_done = convert([conllu_basic_out_formatted], eud, eud_pp, eud_aryeh, int(conv_iterations), remove_eud_info, remove_extra_info, False, ConvsCanceler())
     odin_plus_out = cw.conllu_to_odin(conllu_plus_out_formatted, push_new_to_end=False)
 
     return json.dumps({
