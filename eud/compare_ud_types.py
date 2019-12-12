@@ -3,8 +3,8 @@ from bottle import route, run, request, static_file
 import json
 import spacy
 #from spacy_conll import Spacy2ConllParser
-from ud2ude_aryehgigi.converter import convert, ConvsCanceler
-import ud2ude_aryehgigi.conllu_wrapper as cw
+from ud2ude.converter import convert, ConvsCanceler
+import ud2ude.conllu_wrapper as cw
 
 #ARBITRARY_PATH = "sentence.txt"
 
