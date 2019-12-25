@@ -29,7 +29,7 @@ def annotate():
     remove_eud_info = request.json["remove_eud_info"]
     remove_extra_info = request.json["remove_extra_info"]
     
-    doc = Doc(nlp.vocab, words=[t for t in nlp(sentence) if not t.is_space])
+    doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
     _ = tagger(doc)
     _ = parser(doc)
     conllu_basic_out_formatted = cw.parse_spacy_doc(doc)
