@@ -44,6 +44,6 @@ def annotate():
     })
 
 nlp = spacy.load("en_ud_model")
-run(host='localhost', reloader=True, port=5070)
 tagger = nlp.get_pipe('tagger')
 parser = nlp.get_pipe('parser')
+run(host='localhost', reloader=True, port=5070)
