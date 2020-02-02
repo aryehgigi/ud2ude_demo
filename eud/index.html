@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8"></meta>
-        <title>Aryeh Demo</title>
+        <title>BART Demo</title>
         <link rel="stylesheet" href="css/tag.css"></link>
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
         <script data-main="scripts/boot" src="scripts/require.js"></script>
@@ -18,7 +18,7 @@
             </fieldset>
         </div>
         <div class="container py-5">
-            <h2 class="mb-5">Compare Dependency Parsing (Aryeh's Demo)</h2>
+            <h2 class="mb-5">Dependency Representation Enhancements</h2>
             <div class="row mb-5">
                 <div class="col">
                     <form method="post" action="">
@@ -29,27 +29,22 @@
                         <button id="submitButton" type="submit">Submit</button>
                         <input type="checkbox" name="check" id="GFG1" value="1" checked>EnhancedUD,</input>
                         <input type="checkbox" name="check" id="GFG2" value="2" checked>EnhancedUD++,</input>
-                        <input type="checkbox" name="check" id="GFG3" value="3" checked>Aryeh's Enhancements,</input>
-                        <input type="checkbox" name="check" id="GFG5" value="5">Remove eud info,</input>
-                        <input type="checkbox" name="check" id="GFG6" value="6">Remove extra info,</input>
-                        <input type="number" name="input" id="GFG4" value=1 placeholder="1" style="width:40px; height:25px;">Max conversion iterations {experimental}</input>
+                        <input type="checkbox" name="check" id="GFG3" value="3" checked>BART,</input>
+                        <input type="checkbox" name="check" id="GFG5" value="5">Remove EUD's label-info,</input>
+                        <input type="checkbox" name="check" id="GFG6" value="6">Include BART's label-info,</input>
+                        <input type="number" name="input" id="GFG4" value=1 placeholder="1" style="width:40px; height:25px;">Max conversion iterations</input>
                     </form>
-                    <h4>Basic UD:</h4>
+                    <h4>Universal Dependencies:</h4>
                     <div id="containerBasic" style="border: solid 1px lightgray"></div>
 					 
-                    <h4>Enhanced UD - Aryeh's version (Conversion iterations done = <output id="iters" style="color:red"></output> ):</h4>
+                    <h4>BART:</h4>
                     <div id="containerPlus" style="border: solid 1px lightgray"></div>
+                    <h4>Conversion iterations done: <output id="iters" style="color:red"></output></h4>
                 </div>
             </div>
         </div>
         </div>
         <footer id="footer" class="footer">
-			<span id="hover" style="visibility:visible" title="SOURCE: where the relation originated from.
-extra: magic word for extra enhancements.
-unc: (optionl) if a relation is uncertain.
-id=NUM: (optionl) give the same ID for every optional target when there is more than one.">
-				<label><b><u>Extra enhancements label guide:</u></b> "SOURCE_extra_unc_id=NUM" <br>(hover for more details)</label>
-            </span>
             <div class="container">
                 <p class="text-muted">
                     Visualisation provided using the <a href="https://creativecodinglab.github.io/TextAnnotationGraphs/">TextAnnotationGraphs (TAG)</a> visualisation/annotation software.
