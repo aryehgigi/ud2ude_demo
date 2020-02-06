@@ -5,6 +5,7 @@ import spacy
 from spacy.tokens import Doc
 from ud2ude.converter import convert, ConvsCanceler
 import ud2ude.conllu_wrapper as cw
+import ud2ude.spacy_wrapper as sw
 
 @route('/eud/')
 @route('/eud/<filepath:path>')
@@ -30,7 +31,8 @@ def annotate():
     doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
     _ = tagger(doc)
     _ = parser(doc)
-    conllu_basic_out_formatted = cw.parse_spacy_doc(doc)
+    
+    conllu_basic_out_formatted = sw.parse_spacy_doc(doc)
     odin_basic_out = cw.conllu_to_odin([conllu_basic_out_formatted], is_basic=True, push_new_to_end=False)
     
     conllu_plus_out_formatted, conv_done = convert([conllu_basic_out_formatted], eud, eud_pp, eud_bart, int(conv_iterations), remove_eud_info,
