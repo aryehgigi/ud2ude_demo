@@ -185,6 +185,44 @@ define([
             submitButton.click(this);
         }
 	}
-	
+
 	return main;
 });
+
+
+function selectExample(event) {
+    var examples = {
+        "Complement control": "I love talking to friends.",
+        "Noun-modifying clauses(reduced relcl)": "The house they made.",
+		"Noun-modifying clauses(acl+participle)": "A vision softly creeping, left its seeds.",
+		"Noun-modifying clauses(acl+infinitive)": "I designed, the house to be build.",
+        "Adverbial clauses": "You shouldn't text me while driving.",
+		"Apposition": "E.T., the Extraterrestrial, phones home.",
+		"Modifiers in conjunction": "I fought and I won behind enemy lines.",
+		"Possessive modifiers in conjunction": "My father and mother met here.",
+		"Elaboration/Specification Clauses": "I like fruits such as apples.",
+		"Compounds": "I used canola oil.",
+		"Genitive Constructions": "Army of zombies.",
+		"Passivization Alternation": "The Sheriff was shot by Bob.",
+		"Hyphen reconstruction": "I work at a Seattle-Based company.",
+		"Adjectival modifiers": "I see dead people.",
+		"Copular Sentences": "Tomorrow is another day.",
+		"Evidential reconstructions(w/o matrix)": "He seems from Britain.",
+		"Evidential reconstructions(with matrix)": "You seem to fear heights.",
+		"Evidential reconstructions(reported)": "My momma always said that energy equals mc^2.",
+		"Aspectual constructions": "He started talking funny.",
+		"Indexicals": "He wonders around in these woods here.",
+		"Extended multi-word prepositions": "The child ran ahead of his mother."
+	};
+    if (event.target.value == "Choose pre-made phenomena examples")
+    {
+        document.getElementById("sentenceInput").value = ""
+        var examplesSelector = document.getElementById("examples");
+        examplesSelector.options[0].selected = true;
+    }
+    else
+    {
+        document.getElementById("sentenceInput").value = examples[event.target.value]
+        document.getElementById("submitButton").click();
+    }
+}
