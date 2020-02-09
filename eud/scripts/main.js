@@ -83,7 +83,7 @@ define([
                             found = true
                             if (e2.reltype != e.reltype)
                             {
-                            	if ((e.reltype.startsWith(e2.reltype)) || ((e.reltype == "compound") && ("nmod:npmod"))) {
+                            	if ((e.reltype.startsWith(e2.reltype)) || ((e.reltype == "compound") && (e2.reltype == "nmod:npmod"))) {
 									e.svg.node.style.fill = "#FFAA00"
 									e2.svg.node.style.fill = "#FFAA00"
 								}
