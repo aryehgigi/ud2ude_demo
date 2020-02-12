@@ -197,6 +197,26 @@ define([
 			e.preventDefault();
 			introJs().start()
 		});
+
+        const $feedbackButton = $("#feedbackButton");
+
+        $feedbackButton.click(async (e) => {
+			e.preventDefault();
+			var feed = window.prompt("Please enter your feedback here:", "You can simply press OK, we will receive the attested senence.")
+			if (feed != null)
+			{
+				var textToSend = ""
+				if ((feed != "") && (feed != "You can simply press OK, we will receive the attested senence."))
+				{
+					textToSend = feed + " "
+				}
+				textToSend += "'" + $("#sentenceInput")[0].value + "'"
+				window.location.href = "mailto:aryeht@allenai.org"
+             		+ "&subject=" + escape("Feedback from demo")
+             		+ "&body=" + escape(textToSend)
+				console.log(window.location.href)
+			}
+		});
 	}
 
 	return main;
