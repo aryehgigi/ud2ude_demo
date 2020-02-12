@@ -211,10 +211,11 @@ define([
 					textToSend = feed + " "
 				}
 				textToSend += "'" + $("#sentenceInput")[0].value + "'"
-				window.location.href = "mailto:aryeht@allenai.org"
-             		+ "&subject=" + escape("Feedback from demo")
-             		+ "&body=" + escape(textToSend)
-				console.log(window.location.href)
+				// window.location.href = "mailto:aryeht@allenai.org"
+             	// 	+ "&subject=" + escape("Feedback from demo")
+             	// 	+ "&body=" + escape(textToSend)
+				// console.log(window.location.href)
+				const response = await axios.post('https://nlp.biu.ac.il/~aryeht/eud/feedback/', {text_to_send: textToSend});
 			}
 		});
 	}
