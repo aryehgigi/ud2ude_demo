@@ -1,88 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"></meta>
+        <meta charset="UTF-8">
         <title>BART Demo</title>
-        <link rel="stylesheet" href="css/tag.css"></link>
-        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+        <link href="css/tag.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="css/introjs.min.css" rel="stylesheet">
+<!--        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>-->
         <script data-main="scripts/boot" src="scripts/require.js"></script>
     </head>
     <body>
+        <header class="modal-header">
+                <ul class="nav nav-pills pull-right">
+                  <li><a href="https://github.com/allenai/ud2ude">Github</a></li>
+                  <li><a href id="showmeButton">intro</a></li>
+                </ul>
+                <h3 class="text-muted">Dependency Representation Enhancements</h3>
+        </header>
+
         <div class="content">
-        <div class="myLegend">
-            <fieldset id="fieldset" class="fieldset">
-                <legend>Legend:</legend>
-                <text style="color:#FF0000">Removed Arc</text><br>
-                <text style="color:#FFAA00;">Changed Label</text><br>
-                <text style="color:#00EE00">Added Arc</text>
-            </fieldset>
-        </div>
-        <div class="container py-5">
-            <div class="col">
-                <h2 class="mb-5">
-                    Dependency Representation Enhancements
-                    <input type="image" height="20" src="img/questionmark.jpg" onclick="location.href='https://github.com/allenai/ud2ude/blob/master/README.md'">
-                </h2>
+            <div data-step="6" data-intro="Legend explaining the colors of labels and arcs that were changed between the two representations." class="myLegend pull-right">
+                <fieldset id="fieldset" class="fieldset">
+                    <legend>Legend:</legend>
+                    <text style="color:#FF0000">Removed Arc</text><br>
+                    <text style="color:#b37700;">Changed Label</text><br>
+                    <text style="color:#009628">Added Arc</text>
+                </fieldset>
             </div>
-            <div class="row mb-5">
-                <div class="col">
-                    <form method="post" action="">
-                        <div>
-                            <label for="name">Type your input here:</label>
-                            <input id="sentenceInput" type="text" style="width:1000px; height:25px;" placeholder="e.g., The quick brown fox jumped over the lazy dog." name="input"></input>
-                        </div>
-						<div>
-                            <button id="submitButton" type="submit">Submit</button>
-                            <label for="name">or</label>
-							<select id="examples" onchange="selectExample(event)">
-                                <option value="Choose pre-made phenomena examples" selected>Choose pre-made example from handled-phenomena</option>>
-                                <option value="Complement control">Complement control</option>
-								<option value="Noun-modifying clauses(reduced relcl)">Noun-modifying clauses(reduced relcl)</option>
-								<option value="Noun-modifying clauses(acl+participle)">Noun-modifying clauses(acl+participle)</option>
-								<option value="Noun-modifying clauses(acl+infinitive)">Noun-modifying clauses(acl+infinitive)</option>
-								<option value="Adverbial clauses">Adverbial clauses</option>
-								<option value="Apposition">Apposition</option>
-								<option value="Modifiers in conjunction">Modifiers in conjunction</option>
-								<option value="Possessive modifiers in conjunction">Possessive modifiers in conjunction</option>
-								<option value="Elaboration/Specification Clauses">Elaboration/Specification Clauses</option>
-								<option value="Compounds">Compounds</option>
-								<option value="Genitive Constructions">Genitive Constructions</option>
-								<option value="Passivization Alternation">Passivization Alternation</option>
-								<option value="Hyphen reconstruction">Hyphen reconstruction</option>
-								<option value="Adjectival modifiers">Adjectival modifiers</option>
-								<option value="Copular Sentences">Copular Sentences</option>
-								<option value="Evidential reconstructions(w/o matrix)">Evidential reconstructions(w/o matrix)</option>
-								<option value="Evidential reconstructions(with matrix)">Evidential reconstructions(with matrix)</option>
-								<option value="Evidential reconstructions(reported)">Evidential reconstructions(reported)</option>
-								<option value="Aspectual constructions">Aspectual constructions</option>
-								<option value="Indexicals">Indexicals</option>
-								<option value="Extended multi-word prepositions">Extended multi-word prepositions</option>
-							</select>
-						</div>
-                        </form>
-                        <input type="checkbox" name="check" id="GFG1" value="1" checked>EnhancedUD,</input>
-                        <input type="checkbox" name="check" id="GFG2" value="2" checked>EnhancedUD++,</input>
-                        <input type="checkbox" name="check" id="GFG3" value="3" checked>BART,</input>
-                        <input type="checkbox" name="check" id="GFG5" value="5">Remove EUD's label-info,</input>
-                        <input type="checkbox" name="check" id="GFG6" value="6">Include BART's label-info,</input>
-                        <input type="number" name="input" id="GFG4" value=1 placeholder="1" style="width:40px; height:25px;">Max conversion iterations</input>
+            <div class="container">
+                <form method="post" action="">
+                    <div data-step="1" data-intro="Here you can input a sentence. Then, after pressing the submit button, the sentence would be parsed into UD and BART formats for further comparison.">
+                        <h5>Type your input here:</h5>
+                        <input id="sentenceInput" type="text" style="width:750px; height:25px;" placeholder="e.g., The quick brown fox jumped over the lazy dog." name="input">
+                        <button id="submitButton" type="submit">Submit</button>
+                    </div>
+                    <div>
+                        <h5>or</h5>
+                        <select id="examples" data-step="2" data-intro="Alternatively, You can simply choose a pre-defined example. These examples are according to a list of phenomena we handle in BART." onchange="selectExample(event)">
+                            <option value="Use loaded examples" selected>Use loaded examples</option>>
+                            <option value="Complement control">Complement control</option>
+                            <option value="Noun-modifying clauses(reduced relcl)">Noun-modifying clauses(reduced relcl)</option>
+                            <option value="Noun-modifying clauses(acl+participle)">Noun-modifying clauses(acl+participle)</option>
+                            <option value="Noun-modifying clauses(acl+infinitive)">Noun-modifying clauses(acl+infinitive)</option>
+                            <option value="Adverbial clauses">Adverbial clauses</option>
+                            <option value="Apposition">Apposition</option>
+                            <option value="Modifiers in conjunction">Modifiers in conjunction</option>
+                            <option value="Possessive modifiers in conjunction">Possessive modifiers in conjunction</option>
+                            <option value="Elaboration/Specification Clauses">Elaboration/Specification Clauses</option>
+                            <option value="Compounds">Compounds</option>
+                            <option value="Genitive Constructions">Genitive Constructions</option>
+                            <option value="Passivization Alternation">Passivization Alternation</option>
+                            <option value="Hyphen reconstruction">Hyphen reconstruction</option>
+                            <option value="Adjectival modifiers">Adjectival modifiers</option>
+                            <option value="Copular Sentences">Copular Sentences</option>
+                            <option value="Evidential reconstructions(w/o matrix)">Evidential reconstructions(w/o matrix)</option>
+                            <option value="Evidential reconstructions(with matrix)">Evidential reconstructions(with matrix)</option>
+                            <option value="Evidential reconstructions(reported)">Evidential reconstructions(reported)</option>
+                            <option value="Aspectual constructions">Aspectual constructions</option>
+                            <option value="Indexicals">Indexicals</option>
+                            <option value="Extended multi-word prepositions">Extended multi-word prepositions</option>
+                        </select>
+                    </div>
                     </form>
-                    <h4>Universal Dependencies:</h4>
+                    <div class="narrow" data-step="3" data-intro="Choose what annotations would be used for BART. Any combination is allowed.">
+                        <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG1" value="1" checked>EnhancedUD;</label></div>
+                        <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG2" value="2" checked>EnhancedUD++;</label></div>
+                        <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG3" value="3" checked>BART;</label></div>
+                    </div>
+                    <div class="narrow" data-step="4" data-intro="Choose what extra information would be shown on the labels (visually).">
+                        <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG5" value="5">Remove EUD's label-info;</label></div>
+                        <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG6" value="6">Include BART's label-info;</label></div>
+                    </div>
+                    <div class="container" data-step="7" data-intro="Choose the number of times the conversion rule-list would be applied iteratively.">
+                        <label><input type="number" name="input" id="GFG4" value=1 placeholder="1" style="width:33px; height:13px;vertical-align: top;">Execute conversion up to # times</label>
+                    </div>
+                </div>
+                <div class="container" data-step="5" data-intro="Here you would see the output parses and would be able to compare them conveniently.">
+                    <h4 id="scrollToHere">Universal Dependencies:</h4>
                     <div id="containerBasic" style="border: solid 1px lightgray"></div>
-					 
                     <h4>BART:</h4>
                     <div id="containerPlus" style="border: solid 1px lightgray"></div>
-                    <h4>Conversion iterations done: <output id="iters" style="color:red"></output></h4>
+                    <h4 data-step="8" data-intro="The actual number of times the conversion rule-list was applied iteratively.">Conversion iterations done: <output id="iters" style="color:red"></output></h4>
                 </div>
             </div>
         </div>
-        </div>
-        <footer id="footer" class="footer">
-            <div class="container">
-                <p class="text-muted">
-                    Visualisation provided using the <a href="https://creativecodinglab.github.io/TextAnnotationGraphs/">TextAnnotationGraphs (TAG)</a> visualisation/annotation software.
-                </p>
-            </div>
+        <footer id="footer" style="align-content: center" class="modal-footer mt-auto py-3" data-step="9" data-intro="Credits!">
+                <div >
+                    <img src="img/ai2.png" height="75" width="75" alt="">
+                    <img src="img/biu.png" height="75" width="75" alt="">
+                </div>
+                <div class="text-muted">
+                    <b>(1)</b> Visualisation provided using the <a href="https://creativecodinglab.github.io/TextAnnotationGraphs/">TextAnnotationGraphs (TAG)</a> visualisation/annotation software.
+                    <b>(2)</b> Intro provided using <a href="https://introjs.com/">IntroJS</a>.
+                </div>
         </footer>
     </body>
 </html>
