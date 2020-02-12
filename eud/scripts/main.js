@@ -215,7 +215,7 @@ define([
              	// 	+ "&subject=" + escape("Feedback from demo")
              	// 	+ "&body=" + escape(textToSend)
 				// console.log(window.location.href)
-				const response = await axios.post('https://nlp.biu.ac.il/~aryeht/eud/feedback/', {text_to_send: textToSend});
+				const response = await axios.post('/eud/feedback/', {text_to_send: textToSend});
 			}
 		});
 	}
