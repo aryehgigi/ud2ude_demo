@@ -26,11 +26,14 @@ def feedback():
     smtp_server = "smtp.gmail.com"
     sender_email = "aryehgigi@gmail.com"
     receiver_email = "aryehgigi@gmail.com"
-    
+    message = 'Subject: {}\n\n{}'.format("BART feedback", text_to_send)
     context = ssl.create_default_context()
-    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-        server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, text_to_send)
+    try:
+        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message)
+    except:
+        pass
 
 
 @route('/eud/annotate/', method='POST')
@@ -63,7 +66,7 @@ def annotate():
     })
 
 
-password = input("pass for sending mails:")
+password = input("pass for sending emails: ")
 nlp = spacy.load("en_ud_model")
 tagger = nlp.get_pipe('tagger')
 parser = nlp.get_pipe('parser')

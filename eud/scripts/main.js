@@ -208,13 +208,9 @@ define([
 				var textToSend = ""
 				if ((feed != "") && (feed != "You can simply press OK, we will receive the attested senence."))
 				{
-					textToSend = feed + " "
+					textToSend = "User wrote: " + feed + "\n"
 				}
-				textToSend += "'" + $("#sentenceInput")[0].value + "'"
-				// window.location.href = "mailto:aryeht@allenai.org"
-             	// 	+ "&subject=" + escape("Feedback from demo")
-             	// 	+ "&body=" + escape(textToSend)
-				// console.log(window.location.href)
+				textToSend += "Last sentence input:\n" + $("#sentenceInput")[0].value
 				const response = await axios.post('https://nlp.biu.ac.il/~aryeht/eud/feedback/', {text_to_send: textToSend});
 			}
 		});
