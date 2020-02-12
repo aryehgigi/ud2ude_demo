@@ -2,10 +2,12 @@ define([
 	'jquery', 
 	'tag',
 	'axios',
+	'intro.min'
 ], function(
 	$, 
 	TAG,
 	axios,
+	introJs
 ) {
 
 	function get_shifts(words1, words2) {
@@ -84,8 +86,8 @@ define([
                             if (e2.reltype != e.reltype)
                             {
                             	if ((e.reltype.startsWith(e2.reltype)) || ((e.reltype == "compound") && (e2.reltype == "nmod:npmod"))) {
-									e.svg.node.style.fill = "#FFAA00"
-									e2.svg.node.style.fill = "#FFAA00"
+									e.svg.node.style.fill = "#b37700"
+									e2.svg.node.style.fill = "#b37700"
 								}
                             	else {
                             		found = false
@@ -106,7 +108,7 @@ define([
 						pair = [min, max]
 						
                         var clash = false
-						e.svg.node.style.fill = "#60ce3a"
+						e.svg.node.style.fill = "#009628"
                         if (pair in dict)
 						{
 							clash = true
@@ -175,6 +177,10 @@ define([
 			tag2 = displayTree(response.data.plus, "containerPlus", "universal-enhanced", tag1.links);
 			iters = document.getElementById("iters")
 			iters.value = response.data.conv_done
+
+			$('html,body').animate({
+            	scrollTop: $("#scrollToHere").offset().top
+        }, 800);
 		});
         
         var slash_idx = window.location.href.lastIndexOf('/')
@@ -184,6 +190,13 @@ define([
             $("#sentenceInput")[0].value = decodeURIComponent(sliced)
             submitButton.click(this);
         }
+
+        const $showmeButton = $("#showmeButton");
+
+        $showmeButton.click(async (e) => {
+			e.preventDefault();
+			introJs().start()
+		});
 	}
 
 	return main;
@@ -214,7 +227,7 @@ function selectExample(event) {
 		"Indexicals": "He wonders around in these woods here.",
 		"Extended multi-word prepositions": "The child ran ahead of his mother."
 	};
-    if (event.target.value == "Choose pre-made phenomena examples")
+    if (event.target.value == "Use loaded examples")
     {
         document.getElementById("sentenceInput").value = ""
         var examplesSelector = document.getElementById("examples");
