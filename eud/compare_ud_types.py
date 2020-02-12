@@ -6,6 +6,9 @@ from spacy.tokens import Doc
 from ud2ude.converter import convert, ConvsCanceler
 import ud2ude.conllu_wrapper as cw
 import ud2ude.spacy_wrapper as sw
+import ssl
+import smtplib
+
 
 @route('/eud/')
 @route('/eud/<filepath:path>')
@@ -14,6 +17,21 @@ def server_static(filepath="index.html"):
     if (" " in lastpart) or ("." not in lastpart):
         filepath = filepath.replace(lastpart, "index.html")
     return static_file(filepath, root='./')
+
+
+@route('/eud/feedback/', method='POST')
+def feedback():
+    text_to_send = request.json["text_to_send"]
+    port = 465  # For SSL
+    smtp_server = "smtp.gmail.com"
+    sender_email = "aryehgigi@gmail.com"
+    receiver_email = "aryehgigi@gmail.com"
+    
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, text_to_send)
+
 
 @route('/eud/annotate/', method='POST')
 def annotate():
@@ -45,6 +63,8 @@ def annotate():
         "conv_done": conv_done,
     })
 
+
+password = input("pass for sending mails:")
 nlp = spacy.load("en_ud_model")
 tagger = nlp.get_pipe('tagger')
 parser = nlp.get_pipe('parser')
