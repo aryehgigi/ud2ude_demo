@@ -1,4 +1,5 @@
 import os
+import sys, traceback
 from bottle import route, run, request, static_file
 import json
 import spacy
@@ -32,8 +33,11 @@ def feedback():
         with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, message)
-    except:
-        pass
+    except smtplib.SMTPException:
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        traceback.print_exception(exc_type, exc_value, exc_traceback, file=sys.stdout)
+        with open("feedback.log", "a") as f:
+            f.write(text_to_send + "\n")
 
 
 @route('/eud/annotate/', method='POST')
