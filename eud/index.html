@@ -72,8 +72,9 @@
                     <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG5" value="5">Remove EUD's label-info;</label></div>
                     <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG6" value="6">Include BART's label-info;</label></div>
                 </div>
-                <div class="narrow" data-step="7" data-intro="Choose the number of times the conversion rule-list would be applied iteratively.">
-                    <label><input type="number" name="input" id="GFG4" value=1 placeholder="1" style="width:33px; height:13px;vertical-align: top;">Execute conversion up to # times</label>
+                <div class="narrow" data-step="7" data-intro="Choose the number of times the conversion rule-list would be applied iteratively, instead of converting repeatedly until convergence which is the default behavior.">
+                   <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG7" value="7" onclick="showLimit(this);">Limit iterated execution</label></div>
+                    <label class="narrow"><input type="number" name="input" id="GFG4" value=1 placeholder="1" style="visibility:hidden; width:33px; height:13px;vertical-align: top;"></label>
                 </div>
             </div>
             <div class="container" data-step="5" data-intro="Here you would see the output parses and would be able to compare them conveniently.">
@@ -81,7 +82,9 @@
                 <div id="containerBasic" style="border: solid 1px lightgray"></div>
                 <h4>BART:</h4>
                 <div id="containerPlus" style="border: solid 1px lightgray"></div>
-                <h4 data-step="8" data-intro="The actual number of times the conversion rule-list was applied iteratively.">Conversion iterations done: <output id="iters" style="color:red"></output></h4>
+            </div>
+            <div class="container" data-step="8" data-intro="The actual number of times the conversion rule-list was applied iteratively.">
+                <h4>Conversion iterations done: <output id="iters" style="color:red"></output></h4>
             </div>
         </div>
         <footer id="footer" style="align-content: center" class="modal-footer mt-auto py-3" data-step="9" data-intro="Credits!">
