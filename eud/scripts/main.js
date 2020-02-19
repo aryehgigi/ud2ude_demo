@@ -153,7 +153,7 @@ define([
             }
             return basicTag
 		}
-		
+
 		const $submitButton = $("#submitButton");
 		
 		$submitButton.click(async (e) => {
@@ -164,12 +164,13 @@ define([
 			var iterations = document.getElementById("GFG4").value
 			var removeEudInfo = document.getElementById("GFG5").checked
 			var includeBartInfo = document.getElementById("GFG6").checked
+			var limitIterations = document.getElementById("GFG7").checked
 
 			const $sentenceInput = $("#sentenceInput");
             $sentenceInput[0].value = $sentenceInput[0].value != "" ? $sentenceInput[0].value : "The quick brown fox jumped over the lazy dog."
             
-			const response = await axios.post('/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_bart: eUdBart, conv_iterations:iterations != "" ? iterations : 1, remove_eud_info: removeEudInfo, include_bart_info: includeBartInfo});
-			
+			const response = await axios.post('/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_bart: eUdBart, conv_iterations: limitIterations ? iterations : "inf", remove_eud_info: removeEudInfo, include_bart_info: includeBartInfo});
+
             $('#containerBasic').empty()
             $('#containerPlus').empty()
             
@@ -219,6 +220,13 @@ define([
 	return main;
 });
 
+function showLimit(checkbox) {
+    if (checkbox.checked) {
+            document.getElementById("GFG4").style.visibility = "visible"
+    } else {
+        document.getElementById("GFG4").style.visibility = "hidden"
+    }
+}
 
 function selectExample(event) {
     var examples = {

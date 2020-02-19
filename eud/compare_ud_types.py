@@ -9,6 +9,7 @@ import ud2ude.conllu_wrapper as cw
 import ud2ude.spacy_wrapper as sw
 import ssl
 import smtplib
+import math
 
 
 @route('/eud/')
@@ -60,8 +61,8 @@ def annotate():
     conllu_basic_out_formatted = sw.parse_spacy_doc(doc)
     odin_basic_out = cw.conllu_to_odin([conllu_basic_out_formatted], is_basic=True, push_new_to_end=False)
     
-    conllu_plus_out_formatted, conv_done = convert([conllu_basic_out_formatted], eud, eud_pp, eud_bart, int(conv_iterations), remove_eud_info,
-                                                   not include_bart_info, False, ConvsCanceler())
+    conllu_plus_out_formatted, conv_done = convert([conllu_basic_out_formatted], eud, eud_pp, eud_bart, int(conv_iterations) if conv_iterations != "inf" else math.inf, remove_eud_info,
+                                                   not include_bart_info, False, False, False, ConvsCanceler())
     odin_plus_out = cw.conllu_to_odin(conllu_plus_out_formatted, push_new_to_end=False)
     
     return json.dumps({
