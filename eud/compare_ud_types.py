@@ -4,7 +4,8 @@ from bottle import route, run, request, static_file
 import json
 import spacy
 from spacy.tokens import Doc
-from ud2ude.converter import convert, ConvsCanceler
+from ud2ude.api import Converter
+from ud2ude.converter import ConvsCanceler
 import ud2ude.conllu_wrapper as cw
 import ud2ude.spacy_wrapper as sw
 import ssl
@@ -54,20 +55,24 @@ def annotate():
     remove_eud_info = request.json["remove_eud_info"]
     include_bart_info = request.json["include_bart_info"]
     
-    doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
-    _ = tagger(doc)
-    _ = parser(doc)
-    conllu_basic_out_formatted = sw.parse_spacy_doc(doc)
-    odin_basic_out = cw.conllu_to_odin([conllu_basic_out_formatted], is_basic=True, push_new_to_end=False)
+    basic_doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
+    extra_doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
+    basic_con = Converter(False, False, False, 0, False, False, False, False, False, ConvsCanceler())
+    extra_con = Converter(eud, eud_pp, eud_bart, int(conv_iterations) if conv_iterations != "inf" else math.inf, remove_eud_info,
+                          not include_bart_info, False, False, False, ConvsCanceler())
     
-    conllu_plus_out_formatted, conv_done = convert([conllu_basic_out_formatted], eud, eud_pp, eud_bart, int(conv_iterations) if conv_iterations != "inf" else math.inf, remove_eud_info,
-                                                   not include_bart_info, False, False, False, ConvsCanceler())
-    odin_plus_out = cw.conllu_to_odin(conllu_plus_out_formatted, push_new_to_end=False)
-
+    for doc, con in [(basic_doc, basic_con), (extra_doc, extra_con)]:
+        _ = tagger(doc)
+        _ = parser(doc)
+        _ = con(doc)
+    
+    odin_basic_out = cw.conllu_to_odin(basic_con.get_parsed_doc(), is_basic=True, push_new_to_end=False)
+    odin_plus_out = cw.conllu_to_odin(extra_con.get_parsed_doc(), push_new_to_end=False)
+    
     return json.dumps({
         "basic": odin_basic_out,
         "plus": odin_plus_out,
-        "conv_done": conv_done,
+        "conv_done": extra_con.get_max_convs(),
     })
 
 
