@@ -233,7 +233,7 @@ function selectExample(event) {
         "Complement control": "I love talking to friends.",
         "Noun-modifying clauses(reduced relcl)": "The house they made.",
 		"Noun-modifying clauses(acl+participle)": "A vision softly creeping, left its seeds.",
-		"Noun-modifying clauses(acl+infinitive)": "I designed, the house to be build.",
+		"Noun-modifying clauses(acl+infinitive)": "I designed, the house to build.",
         "Adverbial clauses": "You shouldn't text me while driving.",
 		"Apposition": "E.T., the Extraterrestrial, phones home.",
 		"Modifiers in conjunction": "I fought and I won behind enemy lines.",
