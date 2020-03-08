@@ -21,7 +21,7 @@
                     <h3 class="text-muted">Dependency Representation Enhancements</h3>
             </header>
             <div class="myLegend pull-right">
-                <fieldset id="fieldset" class="fieldset" data-step="6" data-intro="Legend explaining the colors of labels and arcs that were changed between the two representations.">
+                <fieldset id="fieldset" class="fieldset" data-step="7" data-intro="Legend explaining the colors of labels and arcs that were changed between the two representations.">
                     <legend>Legend</legend>
                     <text style="color:#FF0000">Removed Arc</text><br>
                     <text style="color:#b37700;">Changed Label</text><br>
@@ -72,22 +72,25 @@
                     <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG5" value="5">Remove EUD's label-info;</label></div>
                     <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG6" value="6">Include BART's label-info;</label></div>
                 </div>
-                <div class="narrow" data-step="7" data-intro="Choose the number of times the conversion rule-list would be applied iteratively, instead of converting repeatedly until convergence which is the default behavior.">
+                <div class="narrow" data-step="5" data-intro="Choose whether to allow for conversions that add nodes such as copy-nodes or STATE nodes.">
+                    <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG8" value="8" checked>Remove node adding conversions;</label></div>
+                </div>
+                <div class="narrow" data-step="8" data-intro="Choose the number of times the conversion rule-list would be applied iteratively, instead of converting repeatedly until convergence which is the default behavior.">
                    <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG7" value="7" onclick="showLimit(this);">Limit iterated execution</label></div>
                     <label class="narrow"><input type="number" name="input" id="GFG4" value=1 placeholder="1" style="visibility:hidden; width:33px; height:13px;vertical-align: top;"></label>
                 </div>
             </div>
-            <div class="container" data-step="5" data-intro="Here you would see the output parses and would be able to compare them conveniently.">
+            <div class="container" data-step="6" data-intro="Here you would see the output parses and would be able to compare them conveniently.">
                 <h4 id="scrollToHere">Universal Dependencies:</h4>
                 <div id="containerBasic" style="border: solid 1px lightgray"></div>
                 <h4>BART:</h4>
                 <div id="containerPlus" style="border: solid 1px lightgray"></div>
             </div>
-            <div class="container" data-step="8" data-intro="The actual number of times the conversion rule-list was applied iteratively.">
+            <div class="container" data-step="9" data-intro="The actual number of times the conversion rule-list was applied iteratively.">
                 <h4>Conversion iterations done: <output id="iters" style="color:red"></output></h4>
             </div>
         </div>
-        <footer id="footer" style="align-content: center" class="modal-footer mt-auto py-3" data-step="9" data-intro="Credits!">
+        <footer id="footer" style="align-content: center" class="modal-footer mt-auto py-3" data-step="10" data-intro="Credits!">
             <div class="narrow">
                 <b>(1)</b> Visualisation provided using the <a href="https://creativecodinglab.github.io/TextAnnotationGraphs/">TextAnnotationGraphs (TAG)</a> visualisation/annotation software.
                 <b>(2)</b> Intro provided using <a href="https://introjs.com/">IntroJS</a>.
