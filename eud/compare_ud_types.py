@@ -76,7 +76,7 @@ def annotate():
     })
 
 
-password = input("pass for sending emails: ")
+password = ""  #input("pass for sending emails: ")
 nlp = spacy.load("en_ud_model")
 tagger = nlp.get_pipe('tagger')
 parser = nlp.get_pipe('parser')
