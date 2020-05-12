@@ -4,10 +4,10 @@ from bottle import route, run, request, static_file
 import json
 import spacy
 from spacy.tokens import Doc
-from ud2ude.api import Converter
-from ud2ude.converter import ConvsCanceler
-import ud2ude.conllu_wrapper as cw
-import ud2ude.spacy_wrapper as sw
+from pybart.api import Converter
+from pybart.converter import ConvsCanceler
+import pybart.conllu_wrapper as cw
+import pybart.spacy_wrapper as sw
 import ssl
 import smtplib
 import math
@@ -54,12 +54,13 @@ def annotate():
     conv_iterations = request.json["conv_iterations"]
     remove_eud_info = request.json["remove_eud_info"]
     include_bart_info = request.json["include_bart_info"]
+    remove_node_adding_convs = request.json["remove_node_adding_convs"]
     
     basic_doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
     extra_doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
     basic_con = Converter(False, False, False, 0, False, False, False, False, False, ConvsCanceler())
     extra_con = Converter(eud, eud_pp, eud_bart, int(conv_iterations) if conv_iterations != "inf" else math.inf, remove_eud_info,
-                          not include_bart_info, False, False, False, ConvsCanceler())
+                          not include_bart_info, remove_node_adding_convs, False, False, ConvsCanceler())
     
     for doc, con in [(basic_doc, basic_con), (extra_doc, extra_con)]:
         _ = tagger(doc)
@@ -77,7 +78,7 @@ def annotate():
 
 
 password = ""  #input("pass for sending emails: ")
-nlp = spacy.load("en_ud_model")
+nlp = spacy.load("en_ud_model_lg")
 tagger = nlp.get_pipe('tagger')
 parser = nlp.get_pipe('parser')
 run(host='localhost', reloader=True, port=5070)
