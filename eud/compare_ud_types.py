@@ -4,10 +4,10 @@ from bottle import route, run, request, static_file
 import json
 import spacy
 from spacy.tokens import Doc
-from ud2ude.api import Converter
-from ud2ude.converter import ConvsCanceler
-import ud2ude.conllu_wrapper as cw
-import ud2ude.spacy_wrapper as sw
+from pybart.api import Converter
+from pybart.converter import ConvsCanceler
+import pybart.conllu_wrapper as cw
+import pybart.spacy_wrapper as sw
 import ssl
 import smtplib
 import math
@@ -78,7 +78,7 @@ def annotate():
 
 
 password = input("pass for sending emails: ")
-nlp = spacy.load("en_ud_model")
+nlp = spacy.load("en_ud_model_lg")
 tagger = nlp.get_pipe('tagger')
 parser = nlp.get_pipe('parser')
 run(host='0.0.0.0', reloader=True, port=5000)
