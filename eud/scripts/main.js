@@ -247,7 +247,7 @@ function selectExample(event) {
 		"Adjectival modifiers": "I see dead people.",
 		"Copular Sentences": "Sam is the president.",
 		"Evidential reconstructions(w/o matrix)": "Sally seems from Britain.",
-		"Evidential reconstructions(with matrix)": "Sam seem to fear heights.",
+		"Evidential reconstructions(with matrix)": "Sam seems to fear heights.",
 		"Evidential reconstructions(reported)": "The media reported that they achieved peace.",
 		"Aspectual constructions": "Lisa started talking funny.",
 		"Indexicals": "Sally wonders around in these woods here.",
