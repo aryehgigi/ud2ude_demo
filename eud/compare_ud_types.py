@@ -22,7 +22,7 @@ def server_static(filepath="index.html"):
     return static_file(filepath, root='./')
 
 
-@route('/eud/feedback/', method='POST')
+@route('/eud/feedback.log/', method='POST')
 def feedback():
     text_to_send = request.json["text_to_send"]
     port = 465  # For SSL
