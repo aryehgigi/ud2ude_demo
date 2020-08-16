@@ -11,6 +11,7 @@ import pybart.spacy_wrapper as sw
 import ssl
 import smtplib
 import math
+from pip._vendor import pkg_resources
 
 
 @route('/eud/')
@@ -40,6 +41,13 @@ def feedback():
         traceback.print_exception(exc_type, exc_value, exc_traceback, file=sys.stdout)
         with open("feedback.log", "a") as f:
             f.write(text_to_send + "\n")
+
+
+@route('/eud/version/', method='POST')
+def version():
+    return json.dumps({
+        "version": pybart_version,
+    })
 
 
 @route('/eud/annotate/', method='POST')
@@ -81,4 +89,5 @@ password = input("pass for sending emails: ")
 nlp = spacy.load("en_ud_model_lg")
 tagger = nlp.get_pipe('tagger')
 parser = nlp.get_pipe('parser')
+pybart_version = [p.version for p in pkg_resources.working_set if p.project_name.lower() == "pybart-nlp"][0]
 run(host='0.0.0.0', reloader=True, port=5000)

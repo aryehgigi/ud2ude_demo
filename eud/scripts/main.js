@@ -153,7 +153,11 @@ define([
             }
             return basicTag
 		}
-
+		
+		const version_ret = await axios.post('https://nlp.biu.ac.il/~aryeht/eud/version/')
+		version_page = document.getElementById("version")
+		version_page.value = version_ret.data.version
+		
 		const $submitButton = $("#submitButton");
 		
 		$submitButton.click(async (e) => {
