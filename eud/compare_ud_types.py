@@ -56,6 +56,10 @@ def annotate():
         return {"error": "No sentence provided"}
     
     sentence = request.json["sentence"]
+    print(f"\n\tThe following sentence was posted: {sentence}\n")
+    # client_ip = request.environ.get('HTTP_X_FORWARDED_FOR') or request.environ.get('REMOTE_ADDR')
+    with open("logs.txt", "a+") as logger:
+        logger.write(f"The following sentence was posted: {sentence}\n")
     eud = request.json["eud"]
     eud_pp = request.json["eud_pp"]
     eud_bart = request.json["eud_bart"]
