@@ -56,7 +56,7 @@ def fix_doc(doc):
     for t in doc:
         if t.dep_ in udv_map:
             t.dep_ = udv_map[t.dep_]
-        elif t.dep_ == "nmod" and t.head.tag_ not in ["NN", "NNS", "NNP", "NNPS", "PRP", "PRP$", "WP", "WP$"]:
+        elif t.dep_ == "nmod" and t.head.pos_ in ["VERB", "AUX", "ADV", "ADJ"]:
             t.dep_ = "obl"
 
 
