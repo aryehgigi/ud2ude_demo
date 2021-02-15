@@ -5,9 +5,7 @@ import json
 import spacy
 from spacy.tokens import Doc
 from pybart.api import Converter
-from pybart.converter import ConvsCanceler
 import pybart.conllu_wrapper as cw
-import pybart.spacy_wrapper as sw
 import ssl
 import smtplib
 import math
@@ -70,17 +68,17 @@ def annotate():
     
     basic_doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
     extra_doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
-    basic_con = Converter(False, False, False, 0, False, False, False, False, False, ConvsCanceler())
+    basic_con = Converter(False, False, False, 0, False, False, False, False, False)
     extra_con = Converter(eud, eud_pp, eud_bart, int(conv_iterations) if conv_iterations != "inf" else math.inf, remove_eud_info,
-                          not include_bart_info, remove_node_adding_convs, False, False, ConvsCanceler())
+                          not include_bart_info, remove_node_adding_convs, False, False)
     
     for doc, con in [(basic_doc, basic_con), (extra_doc, extra_con)]:
         _ = tagger(doc)
         _ = parser(doc)
         _ = con(doc)
     
-    odin_basic_out = cw.conllu_to_odin(basic_con.get_parsed_doc(), is_basic=True, push_new_to_end=False)
-    odin_plus_out = cw.conllu_to_odin(extra_con.get_parsed_doc(), push_new_to_end=False)
+    odin_basic_out = cw.conllu_to_odin(basic_con.get_converted_sents(), is_basic=True, push_new_to_end=False)
+    odin_plus_out = cw.conllu_to_odin(extra_con.get_converted_sents(), push_new_to_end=False)
     
     return json.dumps({
         "basic": odin_basic_out,
@@ -89,9 +87,9 @@ def annotate():
     })
 
 
-password = input("pass for sending emails: ")
 nlp = spacy.load("en_ud_model_lg")
 tagger = nlp.get_pipe('tagger')
 parser = nlp.get_pipe('parser')
 pybart_version = [p.version for p in pkg_resources.working_set if p.project_name.lower() == "pybart-nlp"][0]
+password = input("pass for sending emails: ")
 run(host='0.0.0.0', reloader=True, port=5000)
