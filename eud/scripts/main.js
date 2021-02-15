@@ -172,11 +172,12 @@ define([
 			var includeBartInfo = document.getElementById("GFG6").checked
 			var limitIterations = document.getElementById("GFG7").checked
 			var removeNodeAddingConvs = document.getElementById("GFG8").checked
+			var udv = document.getElementById("GFG9").checked
 
 			const $sentenceInput = $("#sentenceInput");
             $sentenceInput[0].value = $sentenceInput[0].value != "" ? $sentenceInput[0].value : "The quick brown fox jumped over the lazy dog."
             
-			const response = await axios.post('https://nlp.biu.ac.il/~aryeht/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_bart: eUdBart, conv_iterations: limitIterations ? iterations : "inf", remove_eud_info: removeEudInfo, include_bart_info: includeBartInfo, remove_node_adding_convs: removeNodeAddingConvs});
+			const response = await axios.post('https://nlp.biu.ac.il/~aryeht/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_bart: eUdBart, conv_iterations: limitIterations ? iterations : "inf", remove_eud_info: removeEudInfo, include_bart_info: includeBartInfo, remove_node_adding_convs: removeNodeAddingConvs, udv: udv});
 
             $('#containerBasic').empty()
             $('#containerPlus').empty()

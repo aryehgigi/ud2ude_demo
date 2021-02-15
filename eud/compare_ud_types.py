@@ -48,6 +48,18 @@ def version():
     })
 
 
+udv_map = {"nsubjpass": "nsubj:pass", "csubjpass": "csubj:pass", "auxpass": "aux:pass", "dobj": "obj", "mwe": "fixed",
+           "nmod:agent": "obl:agent", "nmod:tmod": "obl:tmod"}
+
+
+def fix_doc(doc):
+    for t in doc:
+        if t.dep_ in udv_map:
+            t.dep_ = udv_map[t.dep_]
+        elif t.dep_ == "nmod" and t.head.tag_ not in ["NN", "NNS", "NNP", "NNPS", "PRP", "PRP$", "WP", "WP$"]:
+            t.dep_ = "obl"
+
+
 @route('/eud/annotate/', method='POST')
 def annotate():
     if request.json is None or "sentence" not in request.json:
@@ -65,16 +77,19 @@ def annotate():
     remove_eud_info = request.json["remove_eud_info"]
     include_bart_info = request.json["include_bart_info"]
     remove_node_adding_convs = request.json["remove_node_adding_convs"]
+    udv2 = request.json["udv"]
     
     basic_doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
     extra_doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
-    basic_con = Converter(False, False, False, 0, False, False, False, False, False)
+    basic_con = Converter(False, False, False, 0, False, False, False, False, False, ud_version=2 if udv2 else 1)
     extra_con = Converter(eud, eud_pp, eud_bart, int(conv_iterations) if conv_iterations != "inf" else math.inf, remove_eud_info,
-                          not include_bart_info, remove_node_adding_convs, False, False)
+                          not include_bart_info, remove_node_adding_convs, False, False, ud_version=2 if udv2 else 1)
     
     for doc, con in [(basic_doc, basic_con), (extra_doc, extra_con)]:
         _ = tagger(doc)
         _ = parser(doc)
+        if udv2:
+            fix_doc(doc)
         _ = con(doc)
     
     odin_basic_out = cw.conllu_to_odin(basic_con.get_converted_sents(), is_basic=True, push_new_to_end=False)

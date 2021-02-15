@@ -73,10 +73,13 @@
                     <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG6" value="6">Include BART's label-info;</label></div>
                 </div>
                 <div class="narrow" data-step="5" data-intro="Choose whether to allow for conversions that add nodes such as copy-nodes or STATE nodes.">
-                    <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG8" value="8">Remove node adding conversions;</label></div>
+                    <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG8" value="8">Don't add nodes;</label></div>
                 </div>
-                <div class="narrow" data-step="8" data-intro="Choose the number of times the conversion rule-list would be applied iteratively, instead of converting repeatedly until convergence which is the default behavior.">
-                   <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG7" value="7" onclick="showLimit(this);">Limit iterated execution</label></div>
+                <div class="narrow" data-step="8" data-intro="Choose the version of Universal Dependencies to use.">
+                    <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG9" value="9">use UD-V2;</label></div>
+                </div>
+                <div class="narrow" data-step="9" data-intro="Choose the number of times the conversion rule-list would be applied iteratively, instead of converting repeatedly until convergence which is the default behavior.">
+                   <div class="checkbox mb-3 narrow"><label><input type="checkbox" name="check" id="GFG7" value="7" onclick="showLimit(this);">Limit iterated execution;</label></div>
                     <label class="narrow"><input type="number" name="input" id="GFG4" value=1 placeholder="1" style="visibility:hidden; width:33px; height:13px;vertical-align: top;"></label>
                 </div>
             </div>
@@ -86,11 +89,11 @@
                 <h4>BART:</h4>
                 <div id="containerPlus" style="border: solid 1px lightgray"></div>
             </div>
-            <div class="container" data-step="9" data-intro="The actual number of times the conversion rule-list was applied iteratively.">
+            <div class="container" data-step="10" data-intro="The actual number of times the conversion rule-list was applied iteratively.">
                 <h4>Conversion iterations done: <output id="iters" style="color:red"></output></h4>
             </div>
         </div>
-        <footer id="footer" style="align-content: center" class="modal-footer mt-auto py-3" data-step="10" data-intro="Credits!">
+        <footer id="footer" style="align-content: center" class="modal-footer mt-auto py-3" data-step="11" data-intro="Credits!">
             <div class="narrow">
                 <b>(1)</b> Visualisation provided using the <a href="https://creativecodinglab.github.io/TextAnnotationGraphs/">TextAnnotationGraphs (TAG)</a> visualisation/annotation software.
                 <b>(2)</b> Intro provided using <a href="https://introjs.com/">IntroJS</a>.
