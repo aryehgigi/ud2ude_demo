@@ -12,6 +12,11 @@ import math
 from pip._vendor import pkg_resources
 
 
+nlp = None
+pybart_version = None
+password = None
+
+
 @route('/eud/')
 @route('/eud/<filepath:path>')
 def server_static(filepath="index.html"):
@@ -64,7 +69,7 @@ def fix_doc(doc):
 def annotate():
     if request.json is None or "sentence" not in request.json:
         return {"error": "No sentence provided"}
-    
+
     sentence = request.json["sentence"]
     print(f"\n\tThe following sentence was posted: {sentence}\n")
     # client_ip = request.environ.get('HTTP_X_FORWARDED_FOR') or request.environ.get('REMOTE_ADDR')
@@ -78,23 +83,23 @@ def annotate():
     include_bart_info = request.json["include_bart_info"]
     remove_node_adding_convs = request.json["remove_node_adding_convs"]
     udv2 = request.json["udv"]
-    
+
     basic_doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
     extra_doc = Doc(nlp.vocab, words=[t.text for t in nlp(sentence) if not t.is_space])
     basic_con = Converter(False, False, False, 0, False, False, False, False, False, ud_version=2 if udv2 else 1)
     extra_con = Converter(eud, eud_pp, eud_bart, int(conv_iterations) if conv_iterations != "inf" else math.inf, remove_eud_info,
                           not include_bart_info, remove_node_adding_convs, False, False, ud_version=2 if udv2 else 1)
-    
+
     for doc, con in [(basic_doc, basic_con), (extra_doc, extra_con)]:
-        _ = tagger(doc)
-        _ = parser(doc)
+        for name, proc in nlp.pipeline:
+            doc = proc(doc)
         if udv2:
             fix_doc(doc)
-        _ = con(doc)
-    
+        doc = con(doc)
+
     odin_basic_out = cw.conllu_to_odin(basic_con.get_converted_sents(), is_basic=True, push_new_to_end=False)
     odin_plus_out = cw.conllu_to_odin(extra_con.get_converted_sents(), push_new_to_end=False)
-    
+
     return json.dumps({
         "basic": odin_basic_out,
         "plus": odin_plus_out,
@@ -102,9 +107,8 @@ def annotate():
     })
 
 
-nlp = spacy.load("en_ud_model_lg")
-tagger = nlp.get_pipe('tagger')
-parser = nlp.get_pipe('parser')
-pybart_version = [p.version for p in pkg_resources.working_set if p.project_name.lower() == "pybart-nlp"][0]
-password = input("pass for sending emails: ")
-run(host='0.0.0.0', reloader=True, port=5000)
+if __name__ == "__main__":
+    nlp = spacy.load("en_ud_model_trf")
+    pybart_version = [p.version for p in pkg_resources.working_set if p.project_name.lower() == "pybart-nlp"][0]
+    password = input("pass for sending emails: ")
+    run(host='0.0.0.0', reloader=True, port=5000)
