@@ -154,7 +154,7 @@ define([
             return basicTag
 		}
 		
-		const version_ret = axios.post('https://nlp.biu.ac.il/~aryeht/eud/version/')
+		const version_ret = axios.post('http://34.147.8.119:5000/eud/version/')
 		version_ret.then(function(result) {
 			version_page = document.getElementById("version")
 			version_page.value = result.data.version
@@ -177,7 +177,7 @@ define([
 			const $sentenceInput = $("#sentenceInput");
             $sentenceInput[0].value = $sentenceInput[0].value != "" ? $sentenceInput[0].value : "The quick brown fox jumped over the lazy dog."
             
-			const response = await axios.post('https://nlp.biu.ac.il/~aryeht/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_bart: eUdBart, conv_iterations: limitIterations ? iterations : "inf", remove_eud_info: removeEudInfo, include_bart_info: includeBartInfo, remove_node_adding_convs: removeNodeAddingConvs, udv: udv});
+			const response = await axios.post('http://34.147.8.119:5000/eud/annotate/', {sentence: $sentenceInput[0].value, eud: eUd, eud_pp: eUdPP, eud_bart: eUdBart, conv_iterations: limitIterations ? iterations : "inf", remove_eud_info: removeEudInfo, include_bart_info: includeBartInfo, remove_node_adding_convs: removeNodeAddingConvs, udv: udv});
 
             $('#containerBasic').empty()
             $('#containerPlus').empty()
@@ -220,7 +220,7 @@ define([
 					textToSend = "User wrote: " + feed + "\n"
 				}
 				textToSend += "Last sentence input:\n" + $("#sentenceInput")[0].value
-				const response = await axios.post('https://nlp.biu.ac.il/~aryeht/eud/feedback/', {text_to_send: textToSend});
+				const response = await axios.post('http://34.147.8.119:5000/eud/feedback/', {text_to_send: textToSend});
 			}
 		});
 	}
