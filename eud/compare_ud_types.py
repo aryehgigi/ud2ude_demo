@@ -110,5 +110,5 @@ def annotate():
 if __name__ == "__main__":
     nlp = spacy.load("en_ud_model_trf")
     pybart_version = [p.version for p in pkg_resources.working_set if p.project_name.lower() == "pybart-nlp"][0]
-    password = input("pass for sending emails: ")
+    # password = input("pass for sending emails: ")
     run(host='0.0.0.0', reloader=True, port=5000)
